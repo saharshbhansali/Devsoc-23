@@ -5,39 +5,11 @@ const targetUrl = prompt("Enter a URL:"); // "https://en.wikipedia.org/wiki/Bask
 const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,basket,NBA"
 const blacklistWords = blacklistWordsInput.split(",").map(word => word.trim().toLowerCase());
 
-function getActiveTabUrl() {
-  // Check if the browser is Chrome.
-  if (typeof chrome !== "undefined") {
-    // Get the current tab id.
-    var tabId = chrome.tabs.activeTab.id;
-
-    // Get the tab object for the current tab id.
-    var tab = chrome.tabs.get(tabId);
-
-    // Get the URL of the tab object.
-    var url = tab.url;
-
-    // Return the URL.
-    return url;
-  } else if (typeof firefox !== "undefined") {
-    // Get the current tab id.
-    let tabId = browser.tabs.query({currentWindow: true, active: true}).then(tabs => tabs[0].id);
-
-    // Get the tab object for the current tab id.
-    let tab = browser.tabs.get(tabId);
-
-    // Get the URL of the tab object.
-    let url = tab.url;
-
-    // Return the URL.
-    return url;
-  } else {
-    // The browser is not Chrome or Firefox.
-    return null;
-  }
-}
-
-var tabUrl = getActiveTabUrl();
+chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+  var activeTab = tabs[0];
+  var tabUrl = activeTab.url;
+  console.log(url);
+});
 
 // Fetch the URL and parse the response as text
 fetch(tabUrl)

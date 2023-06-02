@@ -3,9 +3,27 @@
     "name": "WebLens",
     "version": "1.0",
     "description": "Filter sentences from from webpage text",
-    "permissions": ["activeTab"],
+    "permissions": [
+        "tabs",
+        "*://*.wikipedia.org/*",
+        "*://*.google.com/*",
+        "*://*.google.co.uk/*",
+        "*://*.google.ca/*",
+        "*://*.google.com.au/*",
+        "*://*.google.co.nz/*",
+        "*://*.google.ie/*",
+        "*://*.google.com.sg/*",
+        "*://*.google.com.my/*",
+        "*://*.google.com.ph/*",
+        "*://*.google.co.in/*",
+        "storage",
+        "activeTab",
+        "declarativeContent"
+    ],
     "background": {
-      "scripts": ["background.js"],
+      "scripts": [
+        "background.js"
+    ],
       "persistent": false
     },
     "browser_action": {
