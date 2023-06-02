@@ -5,8 +5,24 @@ const targetUrl = prompt("Enter a URL:"); // "https://en.wikipedia.org/wiki/Bask
 const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,basket,NBA"
 const blacklistWords = blacklistWordsInput.split(",").map(word => word.trim().toLowerCase());
 
+function getActiveTabUrl() {
+  // Get the current tab id.
+  var tabId = chrome.tabs.activeTab.id;
+
+  // Get the tab object for the current tab id.
+  var tab = chrome.tabs.get(tabId);
+
+  // Get the URL of the tab object.
+  var url = tab.url;
+
+  // Return the URL.
+  return url;
+}
+
+var tabUrl = getActiveTabUrl();
+
 // Fetch the URL and parse the response as text
-fetch(targetUrl)
+fetch(tabUrl)
   .then(response => response.text())
   .then(data => {
     // Create a temporary div element to parse the HTML response
@@ -37,7 +53,7 @@ fetch(targetUrl)
 
         if (!sentenceHasBlacklistWord) {
           // Append the sentence to the new paragraph
-          newParagraph.textContent += sentence + '. ';
+          newParagraph.textContent += sentence;
         }
       });
 

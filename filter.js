@@ -37,7 +37,7 @@ fetch(targetUrl)
 
         if (!sentenceHasBlacklistWord) {
           // Append the sentence to the new paragraph
-          newParagraph.textContent += sentence + '. ';
+          newParagraph.textContent += sentence;
         }
       });
 
