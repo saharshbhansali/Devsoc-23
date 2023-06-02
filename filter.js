@@ -2,7 +2,7 @@
 const targetUrl = prompt("Enter a URL:"); // "https://en.wikipedia.org/wiki/Basketball"
 
 // Prompt the user for the blacklist words (comma-separated)
-const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,football,tennis"
+const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,basket,NBA"
 const blacklistWords = blacklistWordsInput.split(",").map(word => word.trim().toLowerCase());
 
 // Fetch the URL and parse the response as text
@@ -30,6 +30,7 @@ fetch(targetUrl)
         blacklistWords.forEach(word => {
           if (sentence.toLowerCase().includes(word)) {
             sentenceHasBlacklistWord = true;
+            console.log(`Found blacklist word: ${word}\nSentence: ${sentence}`);
             return;
           }
         });
