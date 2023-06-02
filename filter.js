@@ -1,8 +1,9 @@
 // Prompt the user for a link
-const targetUrl = prompt("Enter a URL:"); // "https://en.wikipedia.org/wiki/Basketball" // 
+const targetUrl = prompt("Enter a URL:"); // "https://en.wikipedia.org/wiki/Basketball"
 
-// Prompt the user for the blacklist word
-const blacklistWord = prompt("Enter the word to blacklist:"); // "basketball" // 
+// Prompt the user for the blacklist words (comma-separated)
+const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,football,tennis"
+const blacklistWords = blacklistWordsInput.split(",").map(word => word.trim().toLowerCase());
 
 // Fetch the URL and parse the response as text
 fetch(targetUrl)
@@ -23,9 +24,17 @@ fetch(targetUrl)
       // Split the paragraph into sentences
       const sentences = paragraph.textContent.split('. ');
 
-      // Loop through each sentence and check if it contains the blacklist word
+      // Loop through each sentence and check if it contains any blacklist words
       sentences.forEach(sentence => {
-        if (!sentence.toLowerCase().includes(blacklistWord.toLowerCase())) {
+        let sentenceHasBlacklistWord = false;
+        blacklistWords.forEach(word => {
+          if (sentence.toLowerCase().includes(word)) {
+            sentenceHasBlacklistWord = true;
+            return;
+          }
+        });
+
+        if (!sentenceHasBlacklistWord) {
           // Append the sentence to the new paragraph
           newParagraph.textContent += sentence + '. ';
         }
