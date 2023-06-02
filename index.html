@@ -4,40 +4,8 @@
     <title>Intercept Article</title>
   </head>
   <body>
-    <script>
-      // Prompt the user for a Wikipedia article link
-      const wikipediaUrl = prompt("Enter an article link:");
-      const blacklistedWord = prompt("Enter a word to blacklist:");
-
-      // Fetch the Wikipedia article
-      fetch(wikipediaUrl)
-        .then(response => response.text())
-        .then(data => {
-          // Create a temporary div element to parse the HTML response
-          const tempDiv = document.createElement("div");
-          tempDiv.innerHTML = data;
-
-          // Get all the paragraphs from the article
-          const paragraphs = tempDiv.querySelectorAll("p");
-
-          // Loop through each paragraph and process/render accordingly
-          paragraphs.forEach(paragraph => {
-            // Check if the paragraph contains the word "basketball"
-            if (!paragraph.textContent.toLowerCase().includes(blacklistedWord.toLowerCase())) {
-              // Create a new paragraph element
-              const newParagraph = document.createElement("p");
-              newParagraph.textContent = paragraph.textContent;
-
-              // Append the new paragraph to the body of the document
-              document.body.appendChild(newParagraph);
-            }
-          });
-        })
-        .catch(error => {
-          console.error("Error fetching the article:", error);
-        });
-
-    </script>
+    <p>Find your Web-view</p> 
   </body>
+  <script src="filter.js"></script>
 </html>
 
