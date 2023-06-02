@@ -1,8 +1,8 @@
 // Prompt the user for a link
-const targetUrl = prompt("Enter a URL:"); // "https://en.wikipedia.org/wiki/Basketball"
+const targetUrl = "https://en.wikipedia.org/wiki/Basketball" // prompt("Enter a URL:"); // 
 
 // Prompt the user for the blacklist words (comma-separated)
-const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,basket,NBA"
+const blacklistWordsInput = prompt("Enter the words to blacklist (comma-separated):"); // "basketball,football,tennis"
 const blacklistWords = blacklistWordsInput.split(",").map(word => word.trim().toLowerCase());
 
 // Fetch the URL and parse the response as text
@@ -20,7 +20,7 @@ fetch(targetUrl)
     paragraphs.forEach(paragraph => {
       // Create a new paragraph element
       const newParagraph = document.createElement("p");
-      
+
       // Split the paragraph into sentences
       const sentences = paragraph.textContent.split('. ');
 
@@ -30,20 +30,26 @@ fetch(targetUrl)
         blacklistWords.forEach(word => {
           if (sentence.toLowerCase().includes(word)) {
             sentenceHasBlacklistWord = true;
-            console.log(`Found blacklist word: ${word}\nSentence: ${sentence}`);
             return;
           }
         });
 
         if (!sentenceHasBlacklistWord) {
           // Append the sentence to the new paragraph
-          newParagraph.textContent += sentence;
+          newParagraph.textContent += sentence + '. ';
         }
       });
 
-      // Append the new paragraph to the body of the document
-      document.body.appendChild(newParagraph);
+      // Append the new paragraph to the temporary div
+      tempDiv.appendChild(newParagraph);
     });
+
+    // Clear the existing page content
+    document.open();
+    document.close();
+
+    // Replace the entire page content with the modified content
+    document.write(tempDiv.innerHTML);
   })
   .catch(error => {
     console.error("Error fetching the URL:", error);
